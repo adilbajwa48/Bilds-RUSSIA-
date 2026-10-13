@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BILDS RUSSIA | Adil Bajwa Production</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #020617;
+            color: #ffffff;
+            overflow-x: hidden;
+            height: 450vh; /* Extended for more RP sections */
+        }
+
+        /* Cinematic Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(2, 6, 23, 0.9);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .brand-logo h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            background: linear-gradient(45deg, #ff0055, #ff9900);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.4));
+        }
+
+        .brand-logo span {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #ff0055, #cc0044);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 0 25px rgba(255, 0, 85, 0.5);
+            transition: 0.3s ease;
+        }
+
+        .nav-btn.discord {
+            background: linear-gradient(135deg, #5865F2, #404eed);
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.5);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* Fixed Viewport Stage */
+        .stage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hero-slide h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.9);
+        }
+
+        .hero-slide p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 750px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
+
+        /* Live Stats Row */
+        .stats-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #38bdf8;
+        }
+
+        .stat-box p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #5865F2, #404eed);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.7);
+            transition: 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 45px rgba(88, 101, 242, 1);
+        }
+
+        /* Moving Character Layer */
+        .interactive-layer {
+            position: fixed;
+            bottom: 30px;
+            left: -150px;
+            width: 190px;
+            z-index: 20;
+            transition: transform 0.08s linear;
+        }
+
+        .character-img {
+            width: 100%;
+            filter: drop-shadow(0 20px 15px rgba(0,0,0,0.9));
+        }
+
+        /* Moving Supercar Layer */
+        .car-container {
+            position: fixed;
+            bottom: 25px;
+            right: -350px;
+            width: 320px;
+            z-index: 20;
+            transition: transform 0.08s linear;
+        }
+
+        .car-img {
+            width: 100%;
+            filter: drop-shadow(0 20px 20px rgba(0,0,0,0.9));
+            transform: scaleX(-1);
+        }
+
+        /* Scroll Hint */
+        .scroll-down-hint {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #64748b;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: bounce 1.5s infinite;
+            z-index: 100;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cinematic Header -->
+    <header>
+        <div class="brand-logo">
+            <h1>BILDS RUSSIA</h1>
+            <span>Presented by Adil Bajwa</span>
+        </div>
+        <div class="nav-buttons">
+            <a href="https://discord.gg/dHzZmuuvku" target="_blank" class="nav-btn discord">Discord</a>
+            <a href="https://discord.gg/dHzZmuuvku" target="_blank" class="nav-btn">Play Now</a>
+        </div>
+    </header>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-down-hint">↓ Scroll to Experience Cinematic World ↓</div>
+
+    <!-- Scroll Content Stage -->
+    <div class="stage">
+        <!-- Slide 1: Welcome & Live Stats -->
+        <div class="hero-slide active" id="slide-0">
+            <h2 style="background: linear-gradient(45deg, #ff0055, #ff3300); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">THE ULTIMATE RUSSIA RP</h2>
+            <p>Welcome to the most intense open-world multiplayer game experience. Custom physics, realistic economies, and non-stop action.</p>
+            
+            <div class="stats-row">
+                <div class="stat-box">
+                    <h3>1,250+</h3>
+                    <p>Active Players</p>
+                </div>
+                <div class="stat-box" style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+                    <h3>99.9%</h3>
+                    <p>Uptime Server</p>
+                </div>
+                <div class="stat-box" style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+                    <h3>24/7</h3>
+                    <p>Active Support</p>
+                </div>
+            </div>
+
+            <a href="https://discord.gg/dHzZmuuvku" target="_blank" class="cta-btn">Join Discord Server</a>
+        </div>
+
+        <!-- Slide 2: Factions & Gangs -->
+        <div class="hero-slide" id="slide-1">
+            <h2 style="background: linear-gradient(45deg, #00ffcc, #0099ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">CHOOSE YOUR FACTION</h2>
+            <p>Rule the streets as a feared Mafia boss, enforce the law as a top Cop, or dominate illegal street racing circuits.</p>
+            <a href="https://discord.gg/dHzZmuuvku" target="_blank" class="cta-btn">Apply for Faction</a>
+        </div>
+
+        <!-- Slide 3: Economy & Supercars -->
+        <div class="hero-slide" id="slide-2">
+            <h2 style="background: linear-gradient(45deg, #9900ff, #ff00cc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ELITE SUPERARS & ECONOMY</h2>
+            <p>Customize high-end hypercars, build businesses, and write your own legendary legacy in Bilds Russia.</p>
+            <a href="https://discord.gg/dHzZmuuvku" target="_blank" class="cta-btn">Start Playing Now</a>
+        </div>
+    </div>
+
+    <!-- Character Animation Element -->
+    <div class="interactive-layer" id="charLayer">
+        <img src="https://i.ibb.co/68Z4w3s/gangster-walking.png" alt="Character" class="character-img" onerror="this.src='https://media.giphy.com/media/3ov9jLsBws9a5pQ89a/giphy.gif'">
+    </div>
+
+    <!-- Car Animation Element -->
+    <div class="car-container" id="carLayer">
+        <img src="https://i.ibb.co/5R3yV8N/supercar.png" alt="Supercar" class="car-img" onerror="this.src='https://media.giphy.com/media/l0HlRnAWXxn0MhOBK/giphy.gif'">
+    </div>
+
+    <script>
+        // High-Performance Scroll Engine
+        window.addEventListener('scroll', () => {
+            let scrollY = window.scrollY;
+            let maxScroll = document.body.scrollHeight - window.innerHeight;
+            let scrollPercent = scrollY / maxScroll;
+
+            // Smooth Character Movement & Bobbing
+            let charLayer = document.getElementById('charLayer');
+            let charX = scrollPercent * (window.innerWidth + 350);
+            let bobbing = Math.sin(scrollY * 0.04) * 8;
+            charLayer.style.transform = `translateX(${charX}px) translateY(${bobbing}px)`;
+
+            // Smooth Car Counter Movement
+            let carLayer = document.getElementById('carLayer');
+            let carX = scrollPercent * (window.innerWidth + 600);
+            carLayer.style.transform = `translateX(-${carX}px)`;
+
+            // Cinematic Slide Transitions
+            let slides = document.querySelectorAll('.hero-slide');
+            slides.forEach((slide) => {
+                slide.classList.remove('active');
+            });
+
+            if (scrollPercent < 0.35) {
+                document.getElementById('slide-0').classList.add('active');
+            } else if (scrollPercent < 0.75) {
+                document.getElementById('slide-1').classList.add('active');
+            } else {
+                document.getElementById('slide-2').classList.add('active');
+            }
+        });
+    </script>
+
+</body>
+</html>
